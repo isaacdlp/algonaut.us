@@ -238,12 +238,11 @@
 				<h2>Contact Us</h2>
 			</header>
 
-			<form id="ajax-contact" method="post" action="https://algonaut.herokuapp.com/algo-mail/"
+			<form id="ajax-contact" method="post" action="https://formspree.io/f/xykopeaz"
 				  msg-sending="Sending the message. One moment."
 				  msg-success="Message sent! Will reply shortly."
 				  msg-failure="Message not sent. Please try again."
 				  msg-error="Oops! There was an error and the message could not be sent.">
-				<input type="hidden" name="token" id="token"/>
 				<div class="input-field">
 					<input type="text" class="form-control" name="name" id="name" required placeholder="Name">
 				</div>
@@ -268,24 +267,17 @@
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="copyright">
-			&copy; 2023 Algonaut LLC. All rights reserved.
+			&copy; 2026 Algonaut LLC. All rights reserved.
 		</div>
 	</footer>
 
 	<!-- Scripts -->
-	<script>
-		function onSubmit(token) {
-			document.getElementById("ajax-contact").submit();
-		}
-	</script>
-
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrollex.min.js"></script>
 	<script src="assets/js/skel.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<script id="capt" src="https://www.google.com/recaptcha/api.js?render=6LeXSoomAAAAAMUViqOsxvu4Er3XukyU1Am4-jC0"></script>
 	<script src="assets/js/form.js"></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->

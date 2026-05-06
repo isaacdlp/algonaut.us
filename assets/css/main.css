@@ -4776,3 +4776,99 @@ form textarea {
 div.grid-style {
     margin-top: 40px;
 }
+
+/* ── Scroll reveal ─────────────────────────────────────────── */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger siblings inside the about grid and gallery */
+#about .grid-style > div.fade-in:nth-child(2),
+#solutions .gallery  > div.fade-in:nth-child(2) { transition-delay: 0.10s; }
+
+#about .grid-style > div.fade-in:nth-child(3),
+#solutions .gallery  > div.fade-in:nth-child(3) { transition-delay: 0.20s; }
+
+#about .grid-style > div.fade-in:nth-child(4),
+#solutions .gallery  > div.fade-in:nth-child(4) { transition-delay: 0.30s; }
+
+/* ── Card hover lift ───────────────────────────────────────── */
+
+.box {
+    transition: transform 0.30s ease, box-shadow 0.30s ease;
+}
+
+.box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Card image hover zoom ─────────────────────────────────── */
+
+.box .image.fit,
+.gallery .image.fit {
+    overflow: hidden;
+}
+
+.box .image.fit img,
+.gallery .image.fit img {
+    transition: transform 0.55s ease;
+}
+
+.box:hover .image.fit img,
+.gallery > div:hover .image.fit img {
+    transform: scale(1.06);
+}
+
+/* ── Button hover lift ─────────────────────────────────────── */
+
+.button, .button.alt {
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+                border-color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.button:hover, .button.alt:hover {
+    transform: translateY(-2px);
+}
+
+.button:active, .button.alt:active {
+    transform: translateY(0);
+}
+
+/* ── Form input focus glow ─────────────────────────────────── */
+
+.input-field input,
+.input-field textarea {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-field input:focus,
+.input-field textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(120, 170, 210, 0.22);
+}
+
+/* ── Respect reduced-motion preference ─────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in,
+    .fade-in.visible               { opacity: 1; transform: none; transition: none; }
+    .box                           { transition: none; }
+    .box:hover                     { transform: none; box-shadow: none; }
+    .box .image.fit img,
+    .gallery .image.fit img        { transition: none; }
+    .box:hover .image.fit img,
+    .gallery > div:hover .image.fit img { transform: none; }
+    .button, .button.alt           { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
+    .button:hover, .button.alt:hover { transform: none; }
+    .input-field input,
+    .input-field textarea          { transition: none; }
+}

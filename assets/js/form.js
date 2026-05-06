@@ -11,61 +11,42 @@ function form_msg(status, message) {
 
 $(function() {
 
-    // Get the form.
     var form = $('#ajax-contact');
 
-    // Set up an event listener for the contact form.
     $(form).submit(function(e) {
-        // Stop the browser from submitting the form.
         e.preventDefault();
 
-        var pkey = $("#capt").attr("src")
-        pkey = pkey.substring(pkey.indexOf("?render=") + 8)
+        var msgSending = form.attr("msg-sending");
+        var msgSuccess = form.attr("msg-success");
+        var msgFailure = form.attr("msg-failure");
+        var msgError = form.attr("msg-error");
 
-        grecaptcha.ready(function() {
-            grecaptcha.execute(pkey, {action: 'submit'}).then(function(token) {
+        if (! msgSending) msgSending = 'Sending message. Just a second';
+        if (! msgSuccess) msgSuccess = 'Message sent. We will be in touch shortly';
+        if (! msgFailure) msgFailure = 'Message not sent. Please try again';
+        if (! msgError) msgError = 'Oops! An error occured and your message could not be sent.';
 
-                var msgSending = form.attr("msg-sending");
-                var msgSuccess = form.attr("msg-success");
-                var msgFailure = form.attr("msg-failure");
-                var msgError = form.attr("msg-error");
+        var formData = $(form).serialize();
 
-                if (! msgSending) msgSending = 'Sending message. Just a second';
-                if (! msgSuccess) msgSuccess = 'Message sent. We will be in touch shortly';
-                if (! msgFailure) msgFailure = 'Message not sent. Please try again';
-                if (! msgError) msgError = 'Oops! An error occured and your message could not be sent.';
+        form_msg('bg-warn', msgSending);
 
-                $('#token').val(token);
-
-                // Serialize the form data.
-                var formData = $(form).serialize();
-
-                form_msg('bg-warn', msgSending);
-                // Submit the form using AJAX.
-                $.ajax({
-                    type: 'POST',
-                    url: $(form).attr('action'),
-                    data: formData
-                })
-                    .done(function(response) {
-                        if (response.status == "success") {
-                            // Make sure that the formMessages div has the 'success' class.
-                            form_msg('bg-success', msgSuccess);
-                        } else {
-                            // Make sure that the formMessages div has the 'danger' class.
-                            form_msg('bg-danger', msgFailure);
-                        }
-
-                        // Clear the form.
-                        $('#name, #email, #message').val('');
-                    })
-                    .fail(function(data) {
-                        // Make sure that the formMessages div has the 'danger' class.
-                        form_msg('bg-danger', msgError);
-                    });
-
+        $.ajax({
+            type: 'POST',
+            url: $(form).attr('action'),
+            data: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+            .done(function(response) {
+                if (response.ok) {
+                    form_msg('bg-success', msgSuccess);
+                    $('#name, #email, #message').val('');
+                } else {
+                    form_msg('bg-danger', msgFailure);
+                }
+            })
+            .fail(function() {
+                form_msg('bg-danger', msgError);
             });
-        });
     });
 
 });

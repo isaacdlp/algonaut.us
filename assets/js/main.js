@@ -310,6 +310,25 @@ var settings = {
 
 			}
 
+		// Scroll reveal.
+			var $revealEls = $('#about .grid-style > div, #solutions .gallery > div, #contact form');
+			$revealEls.addClass('fade-in');
+
+			if ('IntersectionObserver' in window) {
+				var revealObserver = new IntersectionObserver(function(entries) {
+					entries.forEach(function(entry) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+							revealObserver.unobserve(entry.target);
+						}
+					});
+				}, { threshold: 0.12 });
+
+				$revealEls.each(function() { revealObserver.observe(this); });
+			} else {
+				$revealEls.addClass('visible');
+			}
+
 	});
 
 })(jQuery);

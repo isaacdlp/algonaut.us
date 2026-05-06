@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/c/Users/Isaac/Documents/Code/algonaut.us/assets/css/main.css\")",
+      "Read(//c/Users/Isaac/Documents/Code/algonaut.us/assets/css/**)"
+    ]
+  }
+}
